@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunjan Kelshikar - Portfolio</title>
+    <style>
+        /* Reset default styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: #333;
+            line-height: 1.6;
+            padding-top: 60px; /* for fixed nav */
+            scroll-behavior: smooth; /* Smooth scrolling */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 10%;
+            width: 100%;
+            background-color: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 15px 0;
+            z-index: 999;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        header .logo {
+            font-size: 1.5em;
+            font-weight:none;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        header .logo:hover {
+            color: #dd9f98;
+        }
+
+        header .nav-links {
+            list-style-type: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        header .nav-links li a {
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        header .nav-links li a:hover {
+            color: #fa9f95;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        #about {
+            background-color: #fff;
+            color: #333;
+        }
+
+        #projects {
+            background-color: #f9f9f9;
+        }
+
+        #contact {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .section h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* About Section */
+        #about p {
+            font-size: 1.2em;
+            line-height: 1.7;
+            color: #555;
+            margin-top: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Project Section */
+        #projects{
+            color: black;
+        }
+        .project-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .project-item {
+            background-color: white;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .project-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-item img:hover {
+            transform: scale(1.1);
+        }
+
+        .project-item h2 {
+            margin: 15px 0;
+            color: #2c3e50;
+        }
+
+        .project-item p {
+            font-size: 1em;
+            color: #7f8c8d;
+        }
+
+        /* Contact Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        form input, form textarea {
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        form input:focus, form textarea:focus {
+            border-color: #e74c3c;
+            outline: none;
+        }
+
+        form button {
+            padding: 15px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            background-color: #34495e;
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+
+        footer p {
+            font-size: 1em;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 10px;
+            background-color: #e74c3c;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <div class="logo">Gunjan Kelshikar</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h1>About Me</h1>
+        <p>Hello! I'm Gunjan Kelshikar, a passionate web developer and designer. My focus is on clean design, user experience, and delivering high-quality work. I am always exploring new technologies and techniques to create engaging web experiences. My goal is to create websites that not only look amazing but also function flawlessly across devices.</p>
+        <div class="section-divider"></div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <h1>My Projects</h1>
+        <div class="project-gallery">
+            <!-- project 1 -->
+            <div class="project-item">
+                <img src="Screenshot 2025-02-04 154201.png 1.png" alt="Project 1">
+                <h2>Project 1</h2>
+                <p>This website has many food items.
+                    With low price's and you can also order food at home and may enjoy it!!</p>
+            </div>
+
+            <!-- project 2 -->
+            <div class="project-item">
+                <img src="Screenshot 2025-02-04 154243.png 2.png" alt="Project 2">
+                <h2>Project 2</h2>
+                <p>Here you can get to watch many webseries and movies. which you would enjoy most!!</p>
+            </div> 
+
+            <!-- project 3 -->
+            <div class="project-item">
+                <img src="Screenshot 2025-02-04 154325.png 3.png" alt="Project 3">
+                <h2>Project 3</h2>
+                <p>This is online shopping website for men's.
+                   Which has only men accessories!! and where you can get products at low price's!!</p>
+            </div> 
+        </div>
+        <div class="section-divider"></div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h1>Contact Me</h1>
+        <p>If you're interested in collaborating or just want to say "Hi", feel free to reach out!</p>
+        <form action="#" method="post">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="section-divider"></div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2025 Gunjan Kelshikar. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
