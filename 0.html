@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Man's Mall</title>
+  <style>
+    :root {
+      --bg-color: #f4f4f4;
+      --text-color: #000;
+      --header-bg: #0044cc;
+      --button-bg: #0033aa;
+      --button-hover-bg: #001f70;
+      --product-bg: #fff;
+      --cart-bg: #fff;
+      --cart-item-bg: #f9f9f9;
+      --scroll-btn-bg: #0044cc;
+      --scroll-btn-hover-bg: #0033aa;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .dark-mode {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --header-bg: #1f1f1f;
+      --button-bg: #333333;
+      --button-hover-bg: #444444;
+      --product-bg: #1e1e1e;
+      --cart-bg: #1e1e1e;
+      --cart-item-bg: #2a2a2a;
+      --scroll-btn-bg: #333333;
+      --scroll-btn-hover-bg: #444444;
+    }
+
+    header {
+      background-color: var(--header-bg);
+      color: var(--text-color);
+      padding: 10px 20px;
+    }
+
+    .nav-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .nav-container h1 {
+      font-size: 24px;
+      margin: 0 auto;
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    .search-bar {
+      flex: 1;
+      min-width: 200px;
+      padding: 8px 12px;
+      border-radius: 5px;
+      border: none;
+      font-size: 15px;
+      background:gainsboro;
+    }
+
+    .nav-btn, .dark-mode-toggle {
+      padding: 8px 14px;
+      font-size: 14px;
+      background-color: var(--button-bg);
+      color: var(--text-color);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+
+    .nav-btn:hover, .dark-mode-toggle:hover {
+      background-color: var(--button-hover-bg);
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .filter-category {
+      padding: 10px;
+      /* margin: 10px 0; */
+      width: 100%;
+      background:gainsboro;
+    }
+
+    .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .product-card {
+      border-radius: 12px;
+      padding: 15px;
+      width: 220px;
+      text-align: center;
+      background: var(--product-bg);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-card img {
+      border-radius: 8px;
+      object-fit: cover;
+      height: 150px;
+      width: 100%;
+    }
+
+    .product-card button {
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .product-card button:hover {
+      background: linear-gradient(45deg, #ff4b2b, #ff416c);
+      transform: scale(1.05);
+    }
+
+    .quantity-input {
+      padding: 8px;
+      width: 60px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .cart {
+      background-color: var(--cart-bg);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    #cart-items > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--cart-item-bg);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+
+    #cart-items button {
+      background: #dc3545;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #cart-items button:hover {
+      background: #c82333;
+    }
+
+    .cart p {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    .cart button {
+      margin-top: 10px;
+      /* width: 100%; */
+      padding: 12px;
+      background-color:  #dc3545;
+      font-size: 16px;
+      border-radius: 6px;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cart button:hover {
+      background-color: #c82333;
+    }
+
+    #checkout-form {
+      display: none;
+      padding: 20px;
+      background-color: var(--product-bg);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 8px;
+      z-index: 1000;
+      max-width:400px;
+    }
+
+    #checkout-form input {
+      width: 90%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #checkout-form button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 12px;
+      background-color: #dc3545;
+      font-size: 16px;
+      border-radius: 6px;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #checkout-form button:hover {
+      background-color: #c82333;
+    }
+
+    #scrollToTopBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #dc3545;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+      border: none;
+    }
+
+    #scrollToTopBtn:hover {
+      background-color: #c82333;
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-container h1 {
+        text-align: center;
+      }
+
+      .search-bar {
+        width: 90%;
+      }
+
+      .product-list {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- 🛍️ -->
+    <div class="nav-container">
+      <input type="text" class="search-bar" placeholder="🔍 Search for products..." onkeyup="searchProducts()" aria-label="Search for products">
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#B7B7B7"><path d="M280-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640v80H160v480h120v80Zm160-100q25 0 42.5-17.5T500-320q0-25-17.5-42.5T440-380q-25 0-42.5 17.5T380-320q0 25 17.5 42.5T440-260Zm-80 100v-71q-19-17-29.5-40T320-320q0-26 10.5-49t29.5-40v-71h160v71q19 17 29.5 40t10.5 49q0 26-10.5 49T520-231v71H360Zm480 0H640q-17 0-28.5-11.5T600-200v-360q0-17 11.5-28.5T640-600h200q17 0 28.5 11.5T880-560v360q0 17-11.5 28.5T840-160Zm-160-80h120v-280H680v280Zm0 0h120-120Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#B7B7B7"><path d="M280-120q-33 0-56.5-23.5T200-200v-440q0-33 23.5-56.5T280-720h80v-80q0-33 23.5-56.5T440-880h80q33 0 56.5 23.5T600-800v80h80q33 0 56.5 23.5T760-640v440q0 33-23.5 56.5T680-120q0 17-11.5 28.5T640-80q-17 0-28.5-11.5T600-120H360q0 17-11.5 28.5T320-80q-17 0-28.5-11.5T280-120Zm0-80h400v-440H280v440Zm80-40h80v-360h-80v360Zm160 0h80v-360h-80v360Zm-80-480h80v-80h-80v80Zm40 300Z"/></svg>
+        Gentleman’s Choice</h1>
+      <div style="display: flex; gap: 10px;">
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">🌙</button>
+        <button class="nav-btn" onclick="goToCart()" aria-label="Go to cart">🛒</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <select class="filter-category" onchange="filterCategory()" aria-label="Select category">
+      <option value="all">All Categories</option>
+      <option value="accessories">Accessories</option>
+      <option value="electronics">Electronics</option>
+    </select>
+
+    <h2>Products</h2>
+    <div class="product-list" id="product-list"></div>
+
+    <h2>Shopping Cart 🛒</h2>
+    <div class="cart">
+      <div id="cart-items"></div>
+      <p>Total: ₹<span id="cart-total">0.00</span></p>
+      <button onclick="checkout()">💳 Checkout</button>
+    </div>
+  </div>
+
+<div id="checkout-form">
+    <h3>📝 Enter Your Details</h3>
+    <input type="text" id="name" placeholder="Full Name" required>
+    <input type="tel" id="phone" placeholder="Phone Number" required>
+    <input type="text" id="address" placeholder="Address" required>   
+    <button onclick="confirmOrder()">Confirm Order</button>
+</div>
+
+<button id="scrollToTopBtn" title="Go to top">↑</button>
+
+<script>
+    let cart = [];
+    let darkMode = false;
+
+    const products = [
+    { id: 1, name: "Leather Wallet", price: 600, category: "accessories", image: "images/Leather Wallet.avif", description: "Premium leather wallet with multiple card slots and a sleek design." },
+        { id: 2, name: "Smartwatch", price: 2000, category: "electronics", image: "images/Smartwatch.webp", description: "Feature-packed smartwatch with heart rate monitor and notifications." },
+        { id: 3, name: "Backpack", price: 800, category: "accessories", image: "images/Backpack.webp", description: "Durable and stylish backpack perfect for travel and daily use." },
+        { id: 4, name: "Wireless Earbuds", price: 5000, category: "electronics", image: "images/Headphones.webp", description: "High-quality wireless earbuds with noise cancellation and deep bass." },
+        { id: 5, name: "Fitness Tracker", price: 3500, category: "electronics", image: "images/Fitness Tracker.png", description: "Advanced fitness tracker with step counter, sleep tracking, and more." },
+        { id: 6, name: "Leather Boots", price: 8000, category: "accessories", image: "images/Leather Boots.jpg", description: "Stylish and comfortable leather boots for all-day wear." },
+        { id: 7, name: "Jacket", price: 5000, category: "accessories", image: "images/Jacket.avif", description: "Warm and fashionable jacket for winter season." },
+        { id: 8, name: "Sunglasses", price: 700, category: "accessories", image: "images/Sunglasses.webp", description: "UV-protected stylish sunglasses for outdoor wear." },
+        { id: 9, name: "Sneakers", price: 5000, category: "accessories", image: "images/Sneakers.jpg", description: "Comfortable and trendy sneakers for casual and sportswear." },
+        { id: 10, name: "Denim Jeans", price: 900, category: "accessories", image: "images/Denim Jeans.avif", description: "High-quality denim jeans with a perfect fit." },
+        { id: 11, name: "Flip-Flops", price: 600, category: "accessories", image: "images/Flip-Flops.webp" },
+        { id: 12, name: "Formal Shoes", price: 2500, category: "accessories", image: "images/Formal Shoes.jpg", description: "Elegant formal shoes with premium leather finish." },
+        { id: 13, name: "Casual T-Shirt", price: 1100, category: "accessories", image: "images/casualt shirt.webp", description: "Soft cotton t-shirt perfect for everyday wear." },
+        { id: 14, name: "Sports Watch", price: 1800, category: "electronics", image: "images/Sports Watch.jpg", description: "Durable sports watch with water resistance and GPS tracking." },
+        { id: 15, name: "Gaming Headset", price: 5000, category: "electronics", image: "images/Gaming Headset.jpg", description: "Immersive gaming headset with surround sound and mic." },
+        { id: 16, name: "Lapel Pin Set", price: 1500, category: "accessories", image: "images/Lapel Pin set.webp", description: "Stylish lapel pin set to enhance your formal attire." },
+        { id: 17, name: "Perfume", price: 5000, category: "accessories", image: "images/Perfume.jpg", description: "Luxury perfume with a long-lasting fragrance." },
+        { id: 18, name: "Beard Grooming Kit", price: 3000, category: "accessories", image: "images/Beard Grooming Kit.jpg", description: "Complete grooming kit for beard care and styling." },
+        { id: 19, name: "Power Bank", price: 4500, category: "electronics", image: "images/Power Bank.webp", description: "Fast-charging power bank with 20000mAh capacity." },
+        { id: 20, name: "Leather Gloves", price: 3000, category: "accessories", image: "images/NeonMain.webp", description: "Soft leather gloves for winter protection and style." },
+        { id: 21, name: "Bluetooth Speaker", price: 6000, category: "electronics", image: "images/Bluetooth Speaker.jpg", description: "Portable Bluetooth speaker with high bass and clear sound." },
+        { id: 22, name: "Slim Fit Suit", price: 9000, category: "accessories", image: "images/Slim Fit Suit.webp", description: "Premium slim fit suit for formal occasions." },
+        { id: 23, name: "Running Shoes", price: 6000, category: "accessories", image: "images/Running Shoes.webp", description: "Lightweight running shoes for superior comfort and grip." },
+        { id: 24, name: "Tie Set", price: 1800, category: "accessories", image: "images/Tie Set.jpg", description: "Elegant tie set with matching pocket square." },
+        { id: 25, name: "Chain Necklace", price: 500, category: "accessories", image: "images/Chain Necklace.webp" },
+        { id: 26, name: "Bracelet Collection", price: 300, category: "accessories", image: "images/bracelet_collection.jpg" },
+        { id: 27, name: "Gaming Mouse", price: 5000, category: "electronics", image: "images/gaming Mouse.webp" },
+        { id: 28, name: "mini projector", price: 9800, category: "electronics", image: "images/mini projector.webp" },
+        { id: 29, name: "Wireless Keyboard", price: 3000, category: "electronics", image: "images/Wireless Keyboard.jpg", description: "Compact and responsive wireless keyboard for smooth typing." },
+        { id: 30, name: "Smart TV Stick", price: 4500, category: "electronics", image: "images/Smart TV Stick.jpg", description: "Turn your regular TV into a smart TV with this plug-and-play device." },
+        { id: 31, name: "Portable SSD (1TB)", price: 7000, category: "electronics", image: "images/Portable SSD (1TB).jpg", description: "High-speed solid-state drive for storing and transferring files." },
+        { id: 32, name: "Digital Camera", price: 15000, category: "electronics", image: "images/Digital Camera.avif", description: "Professional digital camera with 4K video recording." },
+        { id: 33, name: "VR Headset", price: 11000, category: "electronics", image: "images/VR Headset.webp", description: "Immersive virtual reality headset for gaming and entertainment." },
+        { id: 34, name: "Leather Belt", price: 1200, category: "accessories", image: "images/Leather Belt.avif", description: "Premium leather belt with a stylish buckle." },
+        { id: 35, name: "Cotton Socks (Pack of 5)", price: 900, category: "accessories", image: "images/Cotton Socks.webp", description: "Soft and breathable socks for everyday comfort." },
+        { id: 36, name: "Winter Scarf", price: 1000, category: "accessories", image: "images/Winter Scarf.webp", description: "Warm and stylish wool scarf for cold weather." },
+        { id: 37, name: "Duffel Bag", price: 1500, category: "accessories", image: "images/Duffel Bag.jpg", description: "Spacious and durable bag for gym and travel." },
+        { id: 38, name: "Wallet & Keychain Combo", price: 4000, category: "accessories", image: "images/Wallet & Keychain Combo.jpg", description: "Stylish leather wallet with a matching keychain." },
+        { id: 39, name: "Smartphone Gimbal", price: 8000, category: "electronics", image: "images/Smartphone Gimbal.webp", description: "A handheld stabilizer for smooth and professional-quality videos." },
+        { id: 40, name: "Travel Pillow", price: 1200, category: "accessories", image: "images/Travel Pillow.jpg", description: "Ergonomic memory foam travel pillow for neck support and comfort." },
+    ];
+
+    function displayProducts(filter = "all", searchQuery = "") {
+        const productList = document.getElementById("product-list");
+        productList.innerHTML = "";
+        let filteredProducts = products.filter(p => 
+            (filter === "all" || p.category === filter) &&
+            p.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+        filteredProducts.forEach(product => {
+            let productDiv = document.createElement("div");
+            productDiv.className = "product-card";
+            productDiv.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p>₹${product.price.toLocaleString()}</p>
+                <input type="number" min="1" value="1" class="quantity-input" id="qty-${product.id}">
+                <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Add</button>
+            `;
+            productList.appendChild(productDiv);
+        });
+    }
+
+    function addToCart(id, name, price) {
+        let qtyInput = document.getElementById(`qty-${id}`);
+        let qty = qtyInput ? parseInt(qtyInput.value) : 1;
+
+        let existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+            existingItem.quantity += qty;
+        } else {
+            cart.push({ id, name, price, quantity: qty });
+        }
+
+        updateCart();
+    }
+
+    function updateCart() {
+        let cartItemsContainer = document.getElementById("cart-items");
+        let cartTotal = document.getElementById("cart-total");
+        cartItemsContainer.innerHTML = "";
+        let total = 0;
+
+        cart.forEach((item, index) => {
+            total += item.price * item.quantity;
+            let itemDiv = document.createElement("div");
+            itemDiv.innerHTML = `
+                <p>${item.name} x${item.quantity} - ₹${item.price * item.quantity}
+                <button onclick="removeFromCart(${index})">❌</button></p>`;
+            cartItemsContainer.appendChild(itemDiv);
+        });
+
+        cartTotal.innerText = total.toFixed(2);
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+
+    function checkout() {
+        if (cart.length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+        document.getElementById("checkout-form").style.display = "block";
+    }
+
+    function confirmOrder() {
+        let name = document.getElementById("name").value.trim();
+        let phone = document.getElementById("phone").value.trim();
+        let address = document.getElementById("address").value.trim();
+
+        if (!name || !phone || !address) {
+            alert("Please fill in all details to proceed with the order.");
+            return;
+        } 
+
+        alert("Your order has been placed! 🎉\nName: " + name + "\nPhone: " + phone + "\nAddress: " + address );
+        cart = [];
+        updateCart();
+        document.getElementById("checkout-form").style.display = "none";
+    }
+
+    function toggleDarkMode() {
+        darkMode = !darkMode;
+        document.body.classList.toggle("dark-mode", darkMode);
+        document.querySelector(".dark-mode-toggle").innerText = darkMode ? "☀️" : "🌙 ";
+    }
+
+    function searchProducts() {
+        let searchQuery = document.querySelector(".search-bar").value;
+        displayProducts(document.querySelector(".filter-category").value, searchQuery);
+    }
+
+    function filterCategory() {
+        let selectedCategory = document.querySelector(".filter-category").value;
+        displayProducts(selectedCategory, document.querySelector(".search-bar").value);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        displayProducts();
+    });
+
+    const scrollBtn = document.getElementById("scrollToTopBtn");
+
+    window.onscroll = function () {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            scrollBtn.style.display = "block";
+        } else {
+            scrollBtn.style.display = "none";
+        }
+    };
+
+    scrollBtn.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+
+
+    function goToCart() {
+    const cartSection = document.querySelector(".cart");
+    if (cartSection) {
+        cartSection.scrollIntoView({ behavior: "smooth" });
+    }
+}
+
+</script>
+</body>
+</html>
